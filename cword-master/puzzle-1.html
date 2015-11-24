@@ -1,0 +1,166 @@
+<html>
+
+<head>
+	<title>Place The Word-A Crossword Game</title>	
+</head> 
+ 
+<body> 
+	<!-- 
+		here we have oygContext top DOM element to which the play area will be bound;
+		the HTML template has more binding sites for various visual parts of the puzzle: 
+		oygHeader, oygHeaderMenu, oygState, oygPuzzle, oygPuzzleFooter, oygListH, oygListV, oygFooter;
+		all element names for binding are prefixed with "oyg"
+	-->
+	<div id="oygContext" align="center" style="width:100%;">
+		<table class="oyOuterFrame" border="0" cellpadding="0" cellspacing="0">
+			<tr><td align="center">
+				<table class="oyFrame" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td colspan="5">
+							<table class="oyFrame" border="0" cellpadding="0" cellspacing="0" width="100%">
+								<tr class="oyHeader">
+									<td class="oyHeader">
+										<div id="oygHeader"></div>
+									</td>
+									<td align="right">	
+										<div id="oygHeaderMenu"></div>								
+									</td> 
+								</tr>					
+							</table>
+						</td>  
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="5"></td>
+					</tr>
+					<tr>  
+						<td rowspan="3" class="oyPuzzleCell" align="center" valign="top"> 
+							<div id="oygState"></div>
+							<div class="oyPuzzle" id="oygPuzzle"></div>
+							<div class="oyPuzzleFooter" id="oygPuzzleFooter"></div>			
+						</td>  
+						<td class="oyListCellDot">.</td>    
+						<td class="oyListCell" valign="top" id="oygListH"></td>
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="4"></td>
+					</tr>		
+					<tr>  
+						<td class="oyListCellDot">.</td>   
+						<td class="oyListCell" valign="top" id="oygListV"></td>					
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="5"></td>
+					</tr>			
+					<tr>
+						<td colspan="5" class="oyFooter"> 
+							<div id="oygFooter"></div>
+						</td>
+					</tr>			
+				</table>
+			</td></tr>
+		</table>
+		<div id="oygStatic" align="center" style="font-size: 10px; color: #4282B5; font-family: Arial;"></div>
+	</div>  
+
+	<!-- 
+		here we include all oy-cword-1.0 CSS files; all our style class name are prefixed with "oy" 
+	-->
+	<link rel="stylesheet" href="./oy-cword-1.0/css/base.css" type="text/css">
+
+	<!-- 
+		here we include all oy-cword-1.0 JavaScript files; order is important; 
+		all the files can be combined into one file to reduce number of separate requests
+	-->
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyPrologue.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyJsrAjax.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyClue.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMenu.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyPuzzle.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyServer.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oySign.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMisc.js"></script>	
+	
+	<script src="./oy-cword-1.0/js/jquery.js"  charset="utf-8"></script>
+		<script src="./oy-cword-1.0/js/avro-bangla.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+ 
+	<script type="text/javascript"><!--
+
+		// 
+		//	here we include our own puzzle; it has to be fully prepared with all words properly arranged on the grid;
+		//	currently only one instance of the puzzle can be embedded into the page, we may fix this in the future
+		// 
+		
+		
+													//0-horizontal,1-vertical
+		var oygCrosswordPuzzle = new oyCrosswordPuzzle (
+		  "5748185539682739085",
+		  "./oy-cword-1.0",
+		  "/a/a",
+		  "Place The Word- A Crossword Game",
+		  "This crossword tests your English to Bengali word knowledge.",
+		  [
+			new oyCrosswordClue(458,100359961,12, "shortening something by omitting parts of it.", 
+			 "abbreviation", "26f265b96e01081a5ef26a432eda9cff", 0, 0, 0),
+			new oyCrosswordClue(431,114572662,6, "inability to walk.", "abasia", 
+			"88a259cdfe3cb78a40ec120a63fac540", 1, 0, 0),
+			new oyCrosswordClue(10722,202008542,9, "to go back over a course or path", "backtrack", 
+			"c1fa41b9627f8ea09e5a2a6ee22d6bc5", 1, 2, 0),
+			new oyCrosswordClue(20772,201913154,8, "make a half turn on a horse, in dressage", 
+			"caracole", "394941ddf24e90c70298d4c2750db4d9", 0, 2, 2),
+			new oyCrosswordClue(11264,113600713,9, "a range of frequencies within a given band," + 
+			" in particular that used for transmitting a signal.", 
+			"bandwidth", "3a8203786f83c06011189ab882b1894c", 0, 1, 6),
+			new oyCrosswordClue(652,400007414,5, "very close to doing something", 
+			"about", "3a8203786f83c06011189ab882b1894c", 1, 7, 0),
+			new oyCrosswordClue(85647,111503106,4, "A mass of fine water droplets in the air near or" + 
+			"in contact with the ground", "mist", "3a8203786f83c06011189ab882b1894c", 0, 4, 4),
+			new oyCrosswordClue(90807,400025041,4, "not at all or in no way", "none", "3a8203786f83c06011189ab882b1894c", 1, 11, 0),
+			new oyCrosswordClue(62794,100325660,5, "the act of lifting something with great effort",
+			 "heave", "3a8203786f83c06011189ab882b1894c", 0, 3, 9),
+			new oyCrosswordClue(34272,400197608,6, "in the right manner; correctly; suitably",
+			 "decent", "3a8203786f83c06011189ab882b1894c", 1, 7, 6),
+			new oyCrosswordClue(11215,108257090,4, "an unofficial association of people or groups",
+			 "band", "3a8203786f83c06011189ab882b1894c", 1, 5, 8),
+			new oyCrosswordClue(65088,108242255,4, "a neighborhood",
+			 "hood", "3a8203786f83c06011189ab882b1894c", 0, 2, 11),
+			new oyCrosswordClue(63840,106645018,2, "Greetings to other",
+			 "hi", "3a8203786f83c06011189ab882b1894c", 1, 9, 6),
+			new oyCrosswordClue(133768,106808603,5, "an individual instance of a type of symbol",
+			 "token", "3a8203786f83c06011189ab882b1894c", 0, 7, 11),					
+			new oyCrosswordClue(91114,115190537,4, "twelve o\"clock in the day",
+			 "noon", "3a8203786f83c06011189ab882b1894c", 1, 11, 8)
+		  ],
+		  12,
+		  12
+		);
+		
+		//
+		//	here we configure puzzle options, callbacks and publisher information
+		// 
+		 
+		// publisher information
+		oygCrosswordPuzzle.publisherName = "";
+		oygCrosswordPuzzle.publisherURL = "";
+		
+		//Bengali Input URL
+		oygCrosswordPuzzle.banglaInputURL = "";   //Mehedi
+
+		// game exit URL
+		oygCrosswordPuzzle.leaveGameURL = "";  
+		
+      
+		// this is how to turn off server support; score submission and action tracking will be disabled
+		oygCrosswordPuzzle.canTalkToServer = true;
+	
+	--></script>	
+
+	<!--
+		here we instantiate the puzzle and bind it to the HTML template above and show it to the user
+	-->
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyEpilogue.js"></script>	
+
+</body>  
+
+</html>

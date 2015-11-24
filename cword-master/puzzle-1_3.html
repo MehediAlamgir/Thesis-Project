@@ -1,0 +1,156 @@
+<html>
+
+<head>
+	<title>Place The Word-A Crossword Game</title>	
+</head> 
+ 
+<body> 
+	<!-- 
+		here we have oygContext top DOM element to which the play area will be bound;
+		the HTML template has more binding sites for various visual parts of the puzzle: 
+		oygHeader, oygHeaderMenu, oygState, oygPuzzle, oygPuzzleFooter, oygListH, oygListV, oygFooter;
+		all element names for binding are prefixed with "oyg"
+	-->
+	<div id="oygContext" align="center" style="width:100%;">
+		<table class="oyOuterFrame" border="0" cellpadding="0" cellspacing="0">
+			<tr><td align="center">
+				<table class="oyFrame" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td colspan="5">
+							<table class="oyFrame" border="0" cellpadding="0" cellspacing="0" width="100%">
+								<tr class="oyHeader">
+									<td class="oyHeader">
+										<div id="oygHeader"></div>
+									</td>
+									<td align="right">	
+										<div id="oygHeaderMenu"></div>								
+									</td> 
+								</tr>					
+							</table>
+						</td>  
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="5"></td>
+					</tr>
+					<tr>  
+						<td rowspan="3" class="oyPuzzleCell" align="center" valign="top"> 
+							<div id="oygState"></div>
+							<div class="oyPuzzle" id="oygPuzzle"></div>
+							<div class="oyPuzzleFooter" id="oygPuzzleFooter"></div>			
+						</td>  
+						<td class="oyListCellDot">.</td>    
+						<td class="oyListCell" valign="top" id="oygListH"></td>
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="4"></td>
+					</tr>		
+					<tr>  
+						<td class="oyListCellDot">.</td>   
+						<td class="oyListCell" valign="top" id="oygListV"></td>					
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="5"></td>
+					</tr>			
+					<tr>
+						<td colspan="5" class="oyFooter"> 
+							<div id="oygFooter"></div>
+						</td>
+					</tr>			
+				</table>
+			</td></tr>
+		</table>
+		<div id="oygStatic" align="center" style="font-size: 10px; color: #4282B5; font-family: Arial;"></div>
+	</div>  
+
+	<!-- 
+		here we include all oy-cword-1.0 CSS files; all our style class name are prefixed with "oy" 
+	-->
+	<link rel="stylesheet" href="./oy-cword-1.0/css/base.css" type="text/css">
+
+	<!-- 
+		here we include all oy-cword-1.0 JavaScript files; order is important; 
+		all the files can be combined into one file to reduce number of separate requests
+	-->
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyPrologue.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyJsrAjax.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyClue.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMenu.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyPuzzle.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyServer.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oySign.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMisc.js"></script>	
+ 
+	<script type="text/javascript"><!--
+
+		// 
+		//	here we include our own puzzle; it has to be fully prepared with all words properly arranged on the grid;
+		//	currently only one instance of the puzzle can be embedded into the page, we may fix this in the future
+		// 
+		
+		
+													//0-horizontal,1-vertical
+		var oygCrosswordPuzzle = new oyCrosswordPuzzle (
+		  "5748185539682739085",
+		  "./oy-cword-1.0",
+		  "/a/a",
+		  "Place The Word- A Crossword Game",
+		  "This crossword tests your English to Bengali word knowledge.",
+		  [
+			 new oyCrosswordClue(103682,110482426,12, "someone who practices a learned profession.", 
+			 "practitioner", "26f265b96e01081a5ef26a432eda9cff", 1, 0, 0),
+			new oyCrosswordClue(105682,110506494,5, "a person authorized to act for another.", "proxy", 
+			"88a259cdfe3cb78a40ec120a63fac540", 0, 2, 0),
+			new oyCrosswordClue(101911,100873785,4, "the arithmetic operation of summing", "plus", 
+			"c1fa41b9627f8ea09e5a2a6ee22d6bc5", 1, 2, 0),
+			new oyCrosswordClue(92035,105990115,9, "the goal intended to be attained (and which is believed to be attainable).", 
+			"objective", "394941ddf24e90c70298d4c2750db4d9", 1, 4, 0),
+			new oyCrosswordClue(115176,106790003,6, "witty language used to convey insults or scorn.", 
+			"satire", "3a8203786f83c06011189ab882b1894c", 1, 8, 0),
+			new oyCrosswordClue(44716,202376902,5, "make a great effort at a mental or physical task", 
+			"exert", "3a8203786f83c06011189ab882b1894c", 1, 10, 0),
+			new oyCrosswordClue(41188,200252349,9, "work out in detail", "elaborate", "3a8203786f83c06011189ab882b1894c", 1, 6, 2),
+			new oyCrosswordClue(43734,114461018,6, "the condition of being honored", "esteem", "3a8203786f83c06011189ab882b1894c", 0, 6, 2),
+			new oyCrosswordClue(67659,300585950,9, "constant and unchanging",
+			 "immutable", "3a8203786f83c06011189ab882b1894c", 0, 0, 5),
+			new oyCrosswordClue(62926,202577816,4, "pay close attention to",
+			 "heed", "3a8203786f83c06011189ab882b1894c", 1, 9, 6),
+			new oyCrosswordClue(6971,201331387,6, "add to the very end",
+			 "append", "3a8203786f83c06011189ab882b1894c", 0, 6, 8),
+			new oyCrosswordClue(71183,105822417,5, "some situation or event that is thought about",
+			 "issue", "3a8203786f83c06011189ab882b1894c", 0, 2, 10),
+			new oyCrosswordClue(83979,105146223,5, "any admirable quality or attribute",
+			 "merit", "3a8203786f83c06011189ab882b1894c", 0, 7, 11)
+			
+			
+		  ],
+		  12,
+		  12
+		);
+		
+		//
+		//	here we configure puzzle options, callbacks and publisher information
+		// 
+		 
+		// publisher information
+		oygCrosswordPuzzle.publisherName = "";
+		oygCrosswordPuzzle.publisherURL = "";
+		
+		//Bengali Input URL
+		oygCrosswordPuzzle.banglaInputURL = "";   //Mehedi
+
+		// game exit URL
+		oygCrosswordPuzzle.leaveGameURL = "";  
+      
+		// this is how to turn off server support; score submission and action tracking will be disabled
+		oygCrosswordPuzzle.canTalkToServer = true;
+	
+	--></script>	
+
+	<!--
+		here we instantiate the puzzle and bind it to the HTML template above and show it to the user
+	-->
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyEpilogue.js"></script>	
+
+</body>  
+
+</html>
