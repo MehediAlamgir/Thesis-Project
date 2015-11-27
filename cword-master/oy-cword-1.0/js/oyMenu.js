@@ -222,14 +222,21 @@ oyCrosswordMenu.prototype.installContextMenu = function(){
 	if (this.puzz.banglaInput)
 	{
 		var oThis = this;
+		if(this.matches > 0)
+		{
+			this.addAction2(target, "<b>Bangla Input</b>", "Bengali Meaning...", "lv",
+				function(){			
+					oThis.bengaliMeaningInput();
+					oThis.invalidateMenu();
+					return false; 
+				} 
+			);
 		
-		this.addAction(target, "<b>Bangla Input</b>", "Bengali Meaning...", "lv",
-			function(){			
-				oThis.bengaliMeaningInput();
-				oThis.invalidateMenu();
-				return false; 
-			} 
-		);
+		}
+		else
+		{
+			this.addAction(target, "Bangla Input", "", null, null);
+		}
 		
 	}
 	
@@ -263,7 +270,18 @@ oyCrosswordMenu.prototype.bengaliMeaningInput = function() //-------------------
 	if (this.matches == 0){   
 		this.footer.stateError("No English Word is Placed in the Grid for Bengali Meaning");
 		alert("Nothing to provide Bengali Meaning yet!\nUncover some words first.");
-	} else {		  
+	} else {
+/*
+		var elem = document.createElement("TEXTAREA");
+		elem.innerHTML = " &nbsp; ";	
+		target.appendChild(elem);
+		
+		$(function(){
+					//alert("demo");
+					$('textarea, input[type=text]').avro();				
+					
+		}); 
+	*/	
 		var ms = new Date().getTime() - this.puzz.menu.startOn.getTime();
 		this.server.bengaliMeaningInput(
 			this, this.puzz.uid, 
@@ -655,4 +673,69 @@ oyCrosswordMenu.prototype.submitScore = function(){
 		); 
 		this.footer.stateBusy("Submitting score...");
 	}
-}  
+}
+
+//################################################## Mehedi Starts ################################################################
+
+oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, lambda){
+	caption = caption.replace(" ", "&nbsp;");
+	
+	var elem = document.createElement("SPAN");
+	elem.innerHTML = " &nbsp; ";	
+	target.appendChild(elem);	
+
+	var elem = document.createElement("A");
+	elem.innerHTML = caption;	
+	elem.href = "javascript:void(0);";
+	elem.name= "demo";				 	
+	if (!lambda){
+		elem.className = "oyMenuActionDis";
+		elem.onclick = function(){
+			return false;
+		}		
+	} else {
+		elem.className = "oyMenuAction"; 		
+		var oThis = this;
+		elem.onclick = function(){
+
+			/*########################### Avro Plugin  #######################################*/
+
+			$(function(){
+			
+				$("a[name=demo]").on("click", function () {
+					$('#banglaInputBoxId').bPopup({
+						appendTo: 'form',
+						zIndex: 2,
+						modalClose: false,
+						closeClass: 'b-close',
+						easing: 'easeOutBack',
+						speed: 450,
+						transition: 'slideDown',
+						escClose: true
+					}); 
+				});
+				
+				$('textarea, input[type=text]').avro();
+			//	var value = $(".banglaMeaning").val();
+			//	alert(value);
+			
+			}); 
+
+
+	/*##################################################################*/
+
+			oThis.footer.stateBusy(hint);
+			setTimeout(
+				function(){				
+					lambda(); 
+					oThis.server.trackAction(oThis.puzz.uid, track);
+				}, 100
+			); 
+			return false;
+		}		
+	}
+	
+	target.appendChild(elem);	
+}
+
+//################################################## Mehedi End ################################################################  

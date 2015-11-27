@@ -2,6 +2,39 @@
 
 <head>
 	<title>Place The Word-A Crossword Game</title>	
+
+	<!-- ######################################################################	 Mehedi Starts ###################################################### -->
+			<style>
+			#banglaInputBoxId
+			{
+				display:none;
+			}
+			
+			.button.b-close {
+				border-radius: 7px 7px 7px 7px;
+				box-shadow: none;
+				font: bold 131% sans-serif;
+				padding: 0 6px 2px;
+				position: absolute;
+				right: -7px;
+				top: -7px;
+			}
+			
+			#banglaInputBoxId, #popup2, .bMulti {
+				background-color: #fff;
+				border-radius: 10px 10px 10px 10px;
+				box-shadow: 0 0 25px 5px #999;
+				color: #111;
+				display: none;
+				min-width: 450px;
+				padding: 25px;
+			}
+
+		</style>
+
+	<!-- ######################################################################	 Mehedi Starts ###################################################### -->
+
+	
 </head> 
  
 <body> 
@@ -11,6 +44,23 @@
 		oygHeader, oygHeaderMenu, oygState, oygPuzzle, oygPuzzleFooter, oygListH, oygListV, oygFooter;
 		all element names for binding are prefixed with "oyg"
 	-->
+
+<!-- ######################################################################	 Mehedi Starts ###################################################### -->
+	<div id="banglaInputBoxId">
+				
+				<textarea  rows="5" cols ="50" class="banglaMeaning">
+			
+				</textarea>
+				<span class="button b-close">
+					<span>X</span>
+				</span>
+				
+		</div>
+
+<!-- ######################################################################	 Mehedi End ###################################################### -->
+
+
+
 	<div id="oygContext" align="center" style="width:100%;">
 		<table class="oyOuterFrame" border="0" cellpadding="0" cellspacing="0">
 			<tr><td align="center">
@@ -36,7 +86,12 @@
 						<td rowspan="3" class="oyPuzzleCell" align="center" valign="top"> 
 							<div id="oygState"></div>
 							<div class="oyPuzzle" id="oygPuzzle"></div>
-							<div class="oyPuzzleFooter" id="oygPuzzleFooter"></div>			
+							<div class="oyPuzzleFooter" id="oygPuzzleFooter">
+								
+
+								
+								
+							</div>			
 						</td>  
 						<td class="oyListCellDot">.</td>    
 						<td class="oyListCell" valign="top" id="oygListH"></td>
@@ -79,6 +134,17 @@
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyServer.js"></script>	
 	<script type="text/javascript" src="./oy-cword-1.0/js/oySign.js"></script>	
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyMisc.js"></script>	
+
+
+<!-- ######################################################################	 Mehedi Starts ###################################################### -->
+	<script src="resources/js/jquery.js"  charset="utf-8"></script>	
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"  charset="utf-8"></script>
+	<script src="resources/js/bPopup.js"  charset="utf-8"></script>
+	<script src="resources/js/avro-bangla.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMenu.js"></script>	
+	
+<!-- ######################################################################	 Mehedi Starts ###################################################### -->	
+ 
  
 	<script type="text/javascript"><!--
 

@@ -3,8 +3,6 @@ cword
 
 /*
 
-	We used following Js Engine:
-	
 	CWORD JavaScript Crossword Engine
 
 	Copyright (C) 2007-2010 Pavel Simakov
