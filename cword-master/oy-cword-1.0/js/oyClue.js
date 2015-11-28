@@ -47,10 +47,16 @@ function oyCrosswordClue(
 	
 	this.revealed = false;
 	this.matched = false;
+	this.revealed_BanglaMeaning = true;
+	this.matched_BanglaMeaning = true;
 }
 
 oyCrosswordClue.prototype.completed = function(){
 	return this.matched || this.revealed;
+}
+
+oyCrosswordClue.prototype.completed__BanglaMeaning = function(){
+	return this.matched_BanglaMeaning || this.revealed_BanglaMeaning;
 }
 
 //

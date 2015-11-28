@@ -218,7 +218,9 @@ oyCrosswordMenu.prototype.installContextMenu = function(){
 		this.addSubmitLeaveMenuItems(target);
 	} 
 	
-/*----------------------------------------------------------------------------------------------- Mehedi Starts-------------------------------------------------------------------- */
+/*----------------------------------------------------------------------------------------------- Mehedi Starts  -------------------------------------------------------------------- */
+	
+	//##################################################################### (Bangla Input Button) #############################################################
 	if (this.puzz.banglaInput)
 	{
 		var oThis = this;
@@ -239,8 +241,55 @@ oyCrosswordMenu.prototype.installContextMenu = function(){
 		}
 		
 	}
+
+	//############################################################# (Bangla Input Reveal type Button) #######################################################
+
+	if (!this.canReveal){
+		this.addNoneWordAction_BanglaMeaning(target, "Banla Input Disabled");
+	} else {			
+		if (hidx != -1){
+			var caption = "Bangla Meaning <b>" + (hidx + 1) + "A</b>" // Button
+			if (!this.hlist.clues[hidx].completed__BanglaMeaning())
+			{
+				
+				this.addRevealWordAction_BanglaMeaning(
+					this.hlist.clues[hidx], target, caption
+				);
+				//this.addAction2(target, caption, "", null, null);
+			} 
+			else {
+				/*
+				this.addRevealWordAction_BanglaMeaning(
+					this.hlist.clues[hidx], target, caption
+				);*/
+				this.addAction2(target, caption, "", null, null);
+			}
+		}
+		if (vidx != -1){
+			var caption = "Bangla Meaning <b>" + (vidx + 1) + "D</b>";
+			if (!this.vlist.clues[vidx].completed__BanglaMeaning())
+			{	
+				
+				this.addRevealWordAction_BanglaMeaning( 
+					this.vlist.clues[vidx], target, caption
+				);	
+				
+				//this.addAction2(target, caption, "", null, null);
+			} 
+			else {
+				
+				/*
+				this.addRevealWordAction_BanglaMeaning( 
+					this.vlist.clues[vidx], target, caption
+				); */
+				this.addAction2(target, caption, "", null, null);
+			}	 
+		}
+	} 
+
+
 	
-/*----------------------------------------------------------------------------------------------- Mehedi End-------------------------------------------------------------------- */
+/*----------------------------------------------------------------------------------------------- Mehedi End  -------------------------------------------------------------------- */
 	
 	// footer
 	this.footer.update(); 
@@ -313,7 +362,7 @@ oyCrosswordMenu.prototype.installDoneMenu = function(){
 	
 	var oThis = this;
 	this.addSubmitLeaveMenuItems(target);
-	    
+		
 	this.footer.stateOk("Game over!");
 	 
 	this.server.trackAction(this.puzz.uid, "ovr");
@@ -485,18 +534,18 @@ oyCrosswordMenu.prototype.showAnswer = function(clue, stateCode){
 			input.value = clue.answer.charAt(i).toUpperCase();
 			
 			this.setCellState(pos.x, pos.y, stateCode); 
- 		  	
- 		 	var cell = document.getElementById("oyCell" + pos.x + "_" + pos.y);		
- 		 	switch(stateCode){
- 		 		case 1: 
+			
+			var cell = document.getElementById("oyCell" + pos.x + "_" + pos.y);		
+			switch(stateCode){
+				case 1: 
 					cell.className = "oyCellGuessed"; 		 		
- 		 			break;
+					break;
 				case 2:
-	 		 		cell.className = "oyCellRevealed"; 		 	
- 		 			break; 		 			 
-	 		 	default: 
-	 		 		alert("Bad state code!");		
- 		 	} 		 	
+					cell.className = "oyCellRevealed"; 		 	
+					break; 		 			 
+				default: 
+					alert("Bad state code!");		
+			} 		 	
 		}  
 	} 	  
 	
@@ -531,7 +580,7 @@ oyCrosswordMenu.prototype.checkWordStatus = function(clue){
 			status.wrong++; 
 		}
 	} 
-    
+	
 	return status;
 }
 
@@ -597,8 +646,8 @@ oyCrosswordMenu.prototype.revealWord = function(clue){
 	this.reveals++; 
 	this.showAnswer(clue, 2);	  	 
 	
-	clue.revealed = true; 	
-	clue.matched = false; 	
+	clue.revealed = true; 	// You revealed answer of this clue
+	clue.matched = false; 	// As you revealed this clue answer, so this word will not counted as your given answer anymore.
  
 	var status = this.checkWordStatus(clue);	  	
 	this.footer.stateOk("Revealed [" + status.buf + "]!");
@@ -621,7 +670,10 @@ oyCrosswordMenu.prototype.checkAll = function(){
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
 				
 				this.clues[i].matched = true;
-				this.clues[i].revealed = false;
+				this.clues[i].revealed = false;	
+				
+				this.clues[i].matched_BanglaMeaning = false;
+				this.clues[i].revealed_BanglaMeaning = true;
 				
 				correct++; 
 				this.matches++;
@@ -649,10 +701,13 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 		} else { 
 			this.matches++;  // Number of word matches by user
 			this.showAnswer(clue, 1);	 	
-			this.score += this.getScoreForMatch(clue); //--------------------------------------------------- User score calculation---------------------------------------
+			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
 			 
 			clue.revealed = false; 	
-			clue.matched = true; 	 
+			clue.matched = true; 	
+
+			this.revealed_BanglaMeaning = false;
+			this.matched_BanglaMeaning = true;
 			
 			this.footer.stateOk("[" + status.buf + "] matched!");
 		}
@@ -738,4 +793,44 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 	target.appendChild(elem);	
 }
 
+
+oyCrosswordMenu.prototype.addNoneWordAction_BanglaMeaning = function(target, caption){
+	var elem = document.createElement("SPAN");
+	elem.className = "oyMenuActionNone";
+	elem.innerHTML = caption;	
+	target.appendChild(elem);	
+	
+	var elem = document.createElement("SPAN");
+	elem.innerHTML = " ";	
+	target.appendChild(elem);		
+}
+
+
+oyCrosswordMenu.prototype.addRevealWordAction_BanglaMeaning = function(clue, target, caption){
+	var oThis = this;
+	this.addAction2(target, caption, "Meaning...", "mng",
+		function(){				
+			oThis.provideWordInput(clue);			
+			oThis.invalidateMenu();		
+			return false; 
+		}
+	); 
+} 
+
+
+
+// Pop Up Window for Providing Bangla Meaning
+oyCrosswordMenu.prototype.provideWordInput = function(clue){
+/*	this.deducts += this.getDeductsForReveal(clue);	
+	this.reveals++; 
+	this.showAnswer(clue, 2);	  	 
+*/	
+	clue.revealed_BanglaMeaning = false; 	
+	clue.matched_BanglaMeaning = true; 	
+ 
+//	var status = this.checkWordStatus(clue);	  	
+//	this.footer.stateOk("Revealed [" + status.buf + "]!");
+
+
+} 
 //################################################## Mehedi End ################################################################  
