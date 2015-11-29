@@ -139,6 +139,7 @@ oyServer.prototype.trackAction = function(uid, verb){
 
 oyServer.prototype.bengaliMeaningInput = function (target, uid, score, deducts, checks, reveals, matches, time, name, clues) //----------------------------Mehedi
 {
+	//alert("test");
 	var key1 = uid;
 	var matrix1 = this.computeMatrix(clues);
 	var concat1 = this.md5.hex_hmac_md5(key, matrix.concat); 	
@@ -157,17 +158,7 @@ oyServer.prototype.bengaliMeaningInput = function (target, uid, score, deducts, 
 	var sign1 = this.md5.hex_hmac_md5(key, data);
 	var qstr1 = "uid=" + key + "&data=" + escape(data) + "&sign=" + sign;
 	var url1 = this.submitURL + "?" + qstr; 	 
-/*	
-	var elem = document.createElement("TEXTAREA");
-	elem.innerHTML = " &nbsp; ";	
-	target.appendChild(elem);
-	
-	$(function(){
-				//alert("demo");
-				$('textarea, input[type=text]').avro();				
-				
-	}); 
- */
+
 	//this.submitScoreAjaxAnywhere(this.ep, target, url, matches); 
 	
 
