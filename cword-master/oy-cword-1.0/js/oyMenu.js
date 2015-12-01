@@ -25,6 +25,7 @@
 // Actions menu
 //
 
+var temp_score;
 
 function oyCrosswordMenu(puzz){
 	this.puzz = puzz;
@@ -667,7 +668,8 @@ oyCrosswordMenu.prototype.checkAll = function(){
 			if (status.wrong == 0){				 
 				this.showAnswer(this.clues[i], 1);	 	
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
-				
+				this.temp_score = this.getScoreForMatch(this.clues[i]);
+
 				this.clues[i].matched = true;
 				this.clues[i].revealed = false;	
 				
@@ -701,7 +703,8 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 			this.matches++;  // Number of word matches by user
 			this.showAnswer(clue, 1);	 	
 			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
-			 
+			this.temp_score = this.getScoreForMatch(clue);
+
 			clue.revealed = false; 	
 			clue.matched = true; 	
 			
@@ -731,6 +734,11 @@ oyCrosswordMenu.prototype.submitScore = function(){
 
 //################################################## Mehedi Starts ################################################################
 
+//Clear prompt text area
+function cancel(){
+     document.getElementById('bm').value = "";
+}
+
 oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, lambda){
 	caption = caption.replace(" ", "&nbsp;");
 	
@@ -759,11 +767,12 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 
 			/*########################### Avro Plugin  #######################################*/
 
+
 			$(function(){
 			
 				$("a[name=demo]").on("click", function () {
 					$('#banglaInputBoxId').bPopup({
-						appendTo: 'form',
+						//appendTo: 'form',
 						zIndex: 2,
 						modalClose: false,
 						closeClass: 'b-close',
@@ -772,12 +781,15 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 						transition: 'slideDown',
 						escClose: true
 					}); 
-				});
+				});				
 				
 				$('textarea, input[type=text]').avro();
-			//	var value = $(".banglaMeaning").val();
-			//	alert(value);
-			
+				var value = $(".banglaMeaning").val();
+				//alert(value);
+
+				cancel();
+
+							
 			}); 
 
 
