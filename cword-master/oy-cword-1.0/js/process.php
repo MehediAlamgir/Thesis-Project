@@ -8,4 +8,5 @@
 	mysql_query($query);
 	
 	//echo $text;
+	
 ?>
