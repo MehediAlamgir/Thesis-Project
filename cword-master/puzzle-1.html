@@ -1,6 +1,9 @@
+
+
 <html>
 
 <head>
+
 	<title>Place The Word-A Crossword Game</title>	
 	
 	<!-- ######################################################################	 Mehedi Starts ###################################################### -->
@@ -33,10 +36,12 @@
 		</style>
 
 	<!-- ######################################################################	 Mehedi Starts ###################################################### -->
+	
 
 </head> 
  
 <body> 
+
 	<!-- 
 		here we have oygContext top DOM element to which the play area will be bound;
 		the HTML template has more binding sites for various visual parts of the puzzle: 
@@ -51,9 +56,12 @@
 				</textarea>
 				<span class="button b-close">
 					<span>X</span>
-				</span>
+				</span></br>
+				<button id="btn_ok" onclick="submitBanglaMeaning();">OK</button>
+				<div id="result"></div>
 				
 		</div>
+		
 
 <!-- ######################################################################	 Mehedi End ###################################################### -->
 
@@ -126,6 +134,8 @@
 		here we include all oy-cword-1.0 JavaScript files; order is important; 
 		all the files can be combined into one file to reduce number of separate requests
 	-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyPrologue.js"></script>	
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyJsrAjax.js"></script>	
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyClue.js"></script>	
@@ -145,7 +155,8 @@
 <!-- ######################################################################	 Mehedi Starts ###################################################### -->	
 
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyMenu.js"></script>	
- 
+	
+
 	<script type="text/javascript"><!--
 
 		// 
@@ -221,6 +232,7 @@
 		here we instantiate the puzzle and bind it to the HTML template above and show it to the user
 	-->
 	<script type="text/javascript" src="./oy-cword-1.0/js/oyEpilogue.js"></script>	
+
 
 </body>  
 
