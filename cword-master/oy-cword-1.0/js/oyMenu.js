@@ -887,6 +887,5 @@ oyCrosswordMenu.prototype.provideWordInput = function(clue){
 	var status = this.checkWordStatus(clue);	  	
 	this.footer.stateOk("Meaning of  [" + status.buf + "]!");
 
-
 } 
 //################################################## Mehedi End ################################################################  
