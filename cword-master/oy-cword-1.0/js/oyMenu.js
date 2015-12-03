@@ -823,21 +823,22 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 function submitBanglaMeaning()
 {
 	var value = $(".banglaMeaning").val();
-	alert(value);
+		
+	$('#btn_ok').click( function(){
 	
-	$('btn_ok').click( function(){
-	
+		// DEBUG
+		console.log(value);
+		
 		var meaning = $("#bm").val();
 		
 		$.ajax({
 		
 			type: 'POST',
-			url: 'process.php',
+			url: './oy-cword-1.0/js/process.php',
 			data: {text:meaning},
 			success: function(response){			
 				$('#result').html(response);			
-			}
-		
+			}		
 		}); 
 	
 	});
@@ -886,6 +887,7 @@ oyCrosswordMenu.prototype.provideWordInput = function(clue){
  
 	var status = this.checkWordStatus(clue);	  	
 	this.footer.stateOk("Meaning of  [" + status.buf + "]!");
+
 
 } 
 //################################################## Mehedi End ################################################################  

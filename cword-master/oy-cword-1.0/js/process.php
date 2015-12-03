@@ -4,9 +4,8 @@
 
 	$text = $_POST['text'];
 	
-	$query="INSERT INTO banglameaning  VALUES(1,100,'test')";
+	$query="INSERT INTO banglameaning  VALUES('1','100', '$text')";
 	mysql_query($query);
 	
-	//echo $text;
-	
+	// echo $text;
 ?>
