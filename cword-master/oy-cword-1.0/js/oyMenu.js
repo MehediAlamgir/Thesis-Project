@@ -26,6 +26,8 @@
 //
 
 var temp_score;
+var arr = [];
+var selectedWord;
 
 function oyCrosswordMenu(puzz){
 	this.puzz = puzz;
@@ -654,15 +656,20 @@ oyCrosswordMenu.prototype.revealWord = function(clue){
 }  
 
 //reviewed
-oyCrosswordMenu.prototype.checkAll = function(){
-	
+oyCrosswordMenu.prototype.checkAll = function()
+{	
 	var checked = 0;
 	var correct = 0;
 	for (var i=0; i < this.clues.length; i++){
 		if (this.clues[i].completed()) continue;
 		 
-		var status = this.checkWordStatus(this.clues[i]);	  
+		var status = this.checkWordStatus(this.clues[i]);	
+		var statusNew = this.checkWordStatus(this.clues[i]);	  
+		
 		if (status.isComplete){
+			
+			selectedWord = statusNew.buf;
+			
 			checked++;
 			this.checks++; 
 			this.deducts += this.getDeductionForCheck(this.clues[i]);			
@@ -677,6 +684,8 @@ oyCrosswordMenu.prototype.checkAll = function(){
 				this.clues[i].matched_BanglaMeaning = false;
 				this.clues[i].revealed_BanglaMeaning = true;
 				
+				selectedWord = statusNew.buf;
+				
 				correct++; 
 				this.matches++;
 			}
@@ -685,7 +694,11 @@ oyCrosswordMenu.prototype.checkAll = function(){
 		
 	if  (checked == 0){
 		this.footer.stateError("No complete words found!");
-	} else {
+	}
+	
+	else 
+	{
+		
 		this.footer.stateOk("Checked " + checked + ", " + correct + " matched!"); 
 	}
 }  
@@ -712,8 +725,21 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 			clue.matched_BanglaMeaning = false;
 			clue.revealed_BanglaMeaning = true;
 			
+			selectedWord = status.buf;
+			
 			this.footer.stateOk("[" + status.buf + "] matched!");
 		}
+	}
+}
+
+function getAnswerObject (clue)
+{
+	//alert("1");
+	for(var i=0;i<arr.length;i++)
+	{
+		//alert(arr[i].answer);
+		if(arr[i].answer == clue.toLowerCase())
+			return arr[i];
 	}
 }
 
@@ -822,28 +848,46 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 
 function submitBanglaMeaning()
 {
-	var value = $(".banglaMeaning").val();
-		
-	$('#btn_ok').click( function(){
 	
-		// DEBUG
-		console.log(value);
+		var value = $(".banglaMeaning").val();
+		//alert(selectedWord);
 		
+		var clueObject = getAnswerObject(selectedWord);
+		
+		//alert(clueObject.answer + " " + selectedWord);
 		var meaning = $("#bm").val();
-		
 		$.ajax({
+
+		type: 'POST',
+		url: './oy-cword-1.0/js/process.php',	
 		
-			type: 'POST',
-			url: './oy-cword-1.0/js/process.php',
-			data: {text:meaning},
-			success: function(response){			
-				$('#result').html(response);			
-			}		
-		}); 
-	
-	});
+		
+		data: {
+				banglaWord:meaning,
+				wordId:clueObject.wordid,
+				synsetId:clueObject.synsetid
+			},
+			
+		success: function(response){
+		$('#result').html(response);
+		}
+
+		});;
+			
 }
 
+
+var cnt=0;
+function getClueObject(clueObject)
+{
+	//alert(clueObject.answer);
+	this.arr.push(clueObject);
+	//alert( arr[cnt++].wordid);
+	//this.clueObject = clueObject;
+	//clueObject.wordid = wordId;
+	//clueObject.synsetid = synsetId;
+	
+}
 
 oyCrosswordMenu.prototype.addNoneWordAction_BanglaMeaning = function(target, caption){
 	var elem = document.createElement("SPAN");

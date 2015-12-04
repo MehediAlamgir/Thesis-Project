@@ -159,9 +159,10 @@ oyCrosswordPuzzle.prototype.init = function(){
 		return false; 
 	}	
  	
-	this.footer = new oyCrosswordFooter(this); // In oyMisc.js file
-	this.footer.stateBusy("Starting up...");
- 
+	this.footer = new oyCrosswordFooter(this); // In oyMisc.js file	
+	this.footer.stateBusy("Starting up...");	
+	
+	//this.puzzleObject = new getPuzzleObject(this);
 	this.menu = new oyCrosswordMenu(this);	 
 }
 
