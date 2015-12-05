@@ -655,6 +655,7 @@ oyCrosswordMenu.prototype.revealWord = function(clue){
 
 //reviewed
 oyCrosswordMenu.prototype.checkAll = function(){
+	
 	var checked = 0;
 	var correct = 0;
 	for (var i=0; i < this.clues.length; i++){
@@ -668,7 +669,7 @@ oyCrosswordMenu.prototype.checkAll = function(){
 			if (status.wrong == 0){				 
 				this.showAnswer(this.clues[i], 1);	 	
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
-				this.temp_score = this.getScoreForMatch(this.clues[i]);
+				temp_score = this.getScoreForMatch(this.clues[i]);
 
 				this.clues[i].matched = true;
 				this.clues[i].revealed = false;	
@@ -703,7 +704,7 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 			this.matches++;  // Number of word matches by user
 			this.showAnswer(clue, 1);	 	
 			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
-			this.temp_score = this.getScoreForMatch(clue);
+			temp_score = this.getScoreForMatch(clue);
 
 			clue.revealed = false; 	
 			clue.matched = true; 	
@@ -739,7 +740,10 @@ function cancel(){
      document.getElementById('bm').value = "";
 }
 
+//oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, lambda){
 oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, lambda){
+	
+	//alert("AddAction2");
 	caption = caption.replace(" ", "&nbsp;");
 	
 	var elem = document.createElement("SPAN");
@@ -785,7 +789,14 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				
 				$('textarea, input[type=text]').avro();
 				var value = $(".banglaMeaning").val();
-				//alert(value);
+				
+/*				if(value != null)
+					this.score += temp_score;
+				
+				console.log(value);
+				console.log(parseInt(score));
+				console.log(temp_score);*/
+				//alert(temp_score);
 
 				cancel();
 
@@ -807,6 +818,44 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 	}
 	
 	target.appendChild(elem);	
+}
+
+function submitBanglaMeaning()
+{
+	
+		var value = $(".banglaMeaning").val();
+		//alert(value);
+
+		var meaning = $("#bm").val();
+
+		$.ajax({
+
+		type: 'POST',
+		url: './oy-cword-1.0/js/process.php',
+		data: {text:meaning},
+		success: function(response){
+		$('#result').html(response);
+		}
+
+		});;
+			
+/*	$('btn_ok').click( function(){
+	
+		var meaning = $("#bm").val();
+		alert(meaning);
+		
+		$.ajax({
+		
+			type: 'POST',
+			url: 'process.php',
+			data: {text:meaning},
+			success: function(response){			
+				$('#result').html(response);			
+			}
+		
+		}); 
+	
+	}); */
 }
 
 
