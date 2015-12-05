@@ -668,7 +668,7 @@ oyCrosswordMenu.prototype.checkAll = function()
 		
 		if (status.isComplete){
 			
-			selectedWord = statusNew.buf;
+			selectedWord = statusNew.buf; // Save the answer in "selectedWord" variable which is currently given to check.
 			
 			checked++;
 			this.checks++; 
@@ -725,13 +725,15 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 			clue.matched_BanglaMeaning = false;
 			clue.revealed_BanglaMeaning = true;
 			
-			selectedWord = status.buf;
+			selectedWord = status.buf; // Save the answer in "selectedWord" variable which is currently given to check.
 			
 			this.footer.stateOk("[" + status.buf + "] matched!");
 		}
 	}
 }
 
+
+//return object of a specific clue to get details of that object(Ex: wordid,synsetid etc..)
 function getAnswerObject (clue)
 {
 	//alert("1");
@@ -849,43 +851,39 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 function submitBanglaMeaning()
 {
 	
-		var value = $(".banglaMeaning").val();
-		//alert(selectedWord);
-		
-		var clueObject = getAnswerObject(selectedWord);
-		
-		//alert(clueObject.answer + " " + selectedWord);
-		var meaning = $("#bm").val();
-		$.ajax({
+	var value = $(".banglaMeaning").val();
+	//alert(selectedWord);
+	
+	var clueObject = getAnswerObject(selectedWord);
+	
+	//alert(clueObject.answer + " " + selectedWord);
+	var meaning = $("#bm").val();
+	$.ajax({
 
-		type: 'POST',
-		url: './oy-cword-1.0/js/process.php',	
-		
-		
-		data: {
-				banglaWord:meaning,
-				wordId:clueObject.wordid,
-				synsetId:clueObject.synsetid
-			},
-			
-		success: function(response){
-		$('#result').html(response);
-		}
-
+			type: 'POST',
+			url: './oy-cword-1.0/js/process.php',	
+				
+			data: {
+					banglaWord:meaning,
+					wordId:clueObject.wordid,
+					synsetId:clueObject.synsetid
+				},
+				
+			success: function(response){
+			$('#result').html(response);
+			}
 		});;
 			
 }
 
-
 var cnt=0;
+
+// Save every words (which creates the grid) object(to get details of a particular word like wordid,synsetid etc.) in a array
 function getClueObject(clueObject)
 {
 	//alert(clueObject.answer);
 	this.arr.push(clueObject);
 	//alert( arr[cnt++].wordid);
-	//this.clueObject = clueObject;
-	//clueObject.wordid = wordId;
-	//clueObject.synsetid = synsetId;
 	
 }
 
