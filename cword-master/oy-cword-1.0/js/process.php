@@ -1,5 +1,6 @@
 <?php
-	$con = mysql_connect("localhost","root","");
+	// $con = mysql_connect("localhost","root","");
+	$con = mysql_connect("localhost","root","mysql");
 	mysql_set_charset("utf8", $con); 
 	$db = mysql_select_db("wordnet_bangla", $con);
 	

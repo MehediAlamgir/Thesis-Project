@@ -61,6 +61,9 @@ function oyCrosswordMenu(puzz){
 	this.matches = 0;
 	this.score = 0;
 	
+	// Bonus for Bangla inpput
+	this.bonus = 0;
+	
 	this.rank = -1; //---------------------------------------------------------------Rank-------------------------------------------------------------------------------
 	
 	this.xpos = puzz.xpos; 
@@ -676,7 +679,7 @@ oyCrosswordMenu.prototype.checkAll = function()
 			if (status.wrong == 0){				 
 				this.showAnswer(this.clues[i], 1);	 	
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
-				temp_score = this.getScoreForMatch(this.clues[i]);
+				// temp_score = this.getScoreForMatch(this.clues[i]);
 
 				this.clues[i].matched = true;
 				this.clues[i].revealed = false;	
@@ -717,7 +720,7 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 			this.matches++;  // Number of word matches by user
 			this.showAnswer(clue, 1);	 	
 			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
-			temp_score = this.getScoreForMatch(clue);
+			// temp_score = this.getScoreForMatch(clue);
 
 			clue.revealed = false; 	
 			clue.matched = true; 	
@@ -792,6 +795,10 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 	} 
 	else 
 	{
+		// Bangla word collection and bonus calculation
+		var value = "";
+		
+		
 	//	alert("addAction2 ELSE block with lamda Value");
 		elem.className = "oyMenuAction"; 		
 		var oThis = this;
@@ -816,21 +823,22 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				});				
 				
 				$('textarea, input[type=text]').avro();
-				var value = $(".banglaMeaning").val();
+				value = $(".banglaMeaning").val();
 				
-/*				if(value != null)
-					this.score += temp_score;
-				
-				console.log(value);
-				console.log(parseInt(score));
-				console.log(temp_score);*/
+				// console.log(parseInt(score));
+				// console.log(temp_score);
 				//alert(temp_score);
-
 				cancel();
-
-							
 			}); 
-
+			
+			if(value != null)
+				oThis.bonus += value.length;
+		
+			// Update footer for showing bonus
+			oThis.footer.update();
+			
+			// DEBUG
+			console.log("bonus: " + oThis.bonus);
 
 	/*##################################################################*/
 
@@ -842,9 +850,8 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				}, 100
 			); 
 			return false;
-		}		
+		}
 	}
-	
 	target.appendChild(elem);	
 }
 
