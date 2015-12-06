@@ -1,6 +1,5 @@
 <?php
-	// $con = mysql_connect("localhost","root","");
-	$con = mysql_connect("localhost","root","mysql");
+	$con = mysql_connect("localhost","root","");
 	mysql_set_charset("utf8", $con); 
 	$db = mysql_select_db("wordnet_bangla", $con);
 	
@@ -8,8 +7,14 @@
 	$wordId = (int) ($_POST['wordId'] );
 	$synsetId = (int) ($_POST['synsetId'] );
 	
-	$query="INSERT INTO banglameaning  VALUES('$wordId','$synsetId', '$banglaWord')";
-	mysql_query($query);
+	if($banglaWord == "")
+		echo "No empty submit allowed";
+	
+	else
+	{
+		$query="INSERT INTO banglameaning  VALUES('$wordId','$synsetId', '$banglaWord')";
+		mysql_query($query);
+	}
 	
 	//echo $banglaWord + " "+ $wordId +" "+$synsetId
 	

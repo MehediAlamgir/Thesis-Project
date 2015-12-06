@@ -85,15 +85,60 @@ oyCrosswordFooter.prototype.clockUpdate = function(){
 } 
  
  
+ 
  // Show Game Score and Rank
 oyCrosswordFooter.prototype.update = function(){	
+
+	var  buf = "";
+	
+	var updatedScore = parseInt ($('#hiddenField').val());
+	
+	if(updatedScore > this.puzz.menu.score)
+	{
+		
+		
+		this.puzz.menu.score = updatedScore;
+		$('#hiddenField').val("");
+		//buf = updatedScore;
+		//alert("updatedScore "+ updatedScore);
+		
+	}
+	
+	
+//	alert("update");
+	
+		 
+	if (!this.puzz.started){
+		buf += "Game has not yet started!";
+	} 
+	else 
+	{
+	//	buf += "Score: <b>" + this.puzz.menu.score + "</b> points"; 		
+		buf = "Score: <b>" + this.puzz.menu.score + "</b> points"; 		
+		if(this.puzz.menu.rank != -1){
+			buf = " (rank <b>" + this.puzz.menu.rank + "</b>)"; 		
+		//	buf += " (rank <b>" + this.puzz.menu.rank + "</b>)"; 		
+		}
+	}
+		 
+	document.getElementById("oygFooterStatus").innerHTML = buf;	
+}
+
+oyCrosswordFooter.prototype.update2 = function(updatedScore){	
+
+	alert("update2");
+	if(updatedScore > this.puzz.menu.score)
+	{
+		this.puzz.menu.score = updatedScore;
+		
+	}
+	
 	var  buf = "";
 		 
 	if (!this.puzz.started){
 		buf += "Game has not yet started!";
 	} else {
 		buf += "Score: <b>" + this.puzz.menu.score + "</b> points"; 		
-		buf += "<br>Bonus: <b>" + this.puzz.menu.bonus + "</b> points"; 		
 		if(this.puzz.menu.rank != -1){
 			buf += " (rank <b>" + this.puzz.menu.rank + "</b>)"; 		
 		}
@@ -101,6 +146,13 @@ oyCrosswordFooter.prototype.update = function(){
 		 
 	document.getElementById("oygFooterStatus").innerHTML = buf;	
 }
+
+function getTotalScore()
+{
+	//alert(this.puzz.menu.score;);
+	return this.puzz.menu.score;
+}
+
 
 
 //

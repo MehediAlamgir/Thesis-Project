@@ -25,7 +25,8 @@
 // Actions menu
 //
 
-var temp_score;
+var temp_score=0;
+var temp_WordLength=0;
 var arr = [];
 var selectedWord;
 
@@ -60,9 +61,6 @@ function oyCrosswordMenu(puzz){
 	this.deducts = 0;	
 	this.matches = 0;
 	this.score = 0;
-	
-	// Bonus for Bangla inpput
-	this.bonus = 0;
 	
 	this.rank = -1; //---------------------------------------------------------------Rank-------------------------------------------------------------------------------
 	
@@ -677,10 +675,18 @@ oyCrosswordMenu.prototype.checkAll = function()
 			this.checks++; 
 			this.deducts += this.getDeductionForCheck(this.clues[i]);			
 			if (status.wrong == 0){				 
-				this.showAnswer(this.clues[i], 1);	 	
+				this.showAnswer(this.clues[i], 1);	
+				
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
-				// temp_score = this.getScoreForMatch(this.clues[i]);
-
+			//	alert("Score: "+this.score);
+				temp_WordLength = this.getScoreForMatch(this.clues[i]);
+				
+				
+				temp_score = this.score;
+			
+			//temp_score = this.getScoreForMatch(this.clues[i]);
+		//	alert("Temp_Score: "+temp_score);
+				
 				this.clues[i].matched = true;
 				this.clues[i].revealed = false;	
 				
@@ -711,17 +717,30 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 	var status = this.checkWordStatus(clue);	  
 	if (!status.isComplete){
 		this.footer.stateError("The word [" + status.buf + "] is incomplete!");
-	} else { 
+	} 
+	else 
+	{ 
 		this.checks++; 
 		this.deducts += this.getDeductionForCheck(clue);			
-		if (status.wrong != 0){		  
+		if (status.wrong != 0)
+		{		  
 			this.footer.stateError("[" + status.buf + "] didn't match!");
-		} else { 
+		} 
+		else 
+		{ 
 			this.matches++;  // Number of word matches by user
 			this.showAnswer(clue, 1);	 	
+			
 			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
-			// temp_score = this.getScoreForMatch(clue);
-
+		//	alert(this.score);
+			
+			temp_WordLength = this.getScoreForMatch(clue);
+			
+			temp_score = this.score;
+			
+		//	this.temp_score = this.getScoreForMatch(clue);
+		//	alert(temp_score);
+			
 			clue.revealed = false; 	
 			clue.matched = true; 	
 			
@@ -795,10 +814,6 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 	} 
 	else 
 	{
-		// Bangla word collection and bonus calculation
-		var value = "";
-		
-		
 	//	alert("addAction2 ELSE block with lamda Value");
 		elem.className = "oyMenuAction"; 		
 		var oThis = this;
@@ -823,22 +838,13 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				});				
 				
 				$('textarea, input[type=text]').avro();
-				value = $(".banglaMeaning").val();
-				
-				// console.log(parseInt(score));
-				// console.log(temp_score);
-				//alert(temp_score);
-				cancel();
-			}); 
-			
-			if(value != null)
-				oThis.bonus += value.length;
+			//	var value = $(".banglaMeaning").val();				
 		
-			// Update footer for showing bonus
-			oThis.footer.update();
-			
-			// DEBUG
-			console.log("bonus: " + oThis.bonus);
+				cancel();
+
+							
+			}); 
+
 
 	/*##################################################################*/
 
@@ -850,8 +856,9 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				}, 100
 			); 
 			return false;
-		}
+		}		
 	}
+	
 	target.appendChild(elem);	
 }
 
@@ -879,7 +886,22 @@ function submitBanglaMeaning()
 			success: function(response){
 			$('#result').html(response);
 			}
-		});;
+		});
+		
+	//	totalScore = getTotalScore();
+		
+		if(meaning != null)
+			temp_score += temp_WordLength;
+			
+			$('#hiddenField').val(temp_score);
+		//update2(temp_score);
+				
+		
+	//	alert("Score_OK: "+ temp_score);
+		alert(meaning);
+		
+	//	alert("Temp Score_OK: "+temp_score);
+		//alert(temp_score);
 			
 }
 
