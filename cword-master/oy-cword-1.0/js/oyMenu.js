@@ -216,7 +216,7 @@ oyCrosswordMenu.prototype.installContextMenu = function(){
 				oThis.invalidateMenu();		
 				return false; 
 			}
-		); //#############################################################################################################2222222222222222222222222222222222222222222222
+		); 
 		 
 		this.addNewLine(target); 
 		
@@ -224,7 +224,7 @@ oyCrosswordMenu.prototype.installContextMenu = function(){
 		this.addSubmitLeaveMenuItems(target);
 	} 
 	
-/*----------------------------------------------------------------------------------------------- Mehedi Starts  -------------------------------------------------------------------- */
+/*----------------------------------------------------------------------------------------------- Edit Starts  -------------------------------------------------------------------- */
 	
 	//##################################################################### (Bangla Input Button) #############################################################
 /*	
@@ -299,7 +299,7 @@ oyCrosswordMenu.prototype.installContextMenu = function(){
 
 
 	
-/*----------------------------------------------------------------------------------------------- Mehedi End  -------------------------------------------------------------------- */
+/*----------------------------------------------------------------------------------------------- Edit End  -------------------------------------------------------------------- */
 	
 	// footer
 	this.footer.update(); 
@@ -657,13 +657,12 @@ oyCrosswordMenu.prototype.revealWord = function(clue){
 }  
 
 //reviewed
-<<<<<<< HEAD
-oyCrosswordMenu.prototype.checkAll = function(){
+
+//oyCrosswordMenu.prototype.checkAll = function(){
 	
-=======
 oyCrosswordMenu.prototype.checkAll = function()
 {	
->>>>>>> temp
+
 	var checked = 0;
 	var correct = 0;
 	for (var i=0; i < this.clues.length; i++){
@@ -683,10 +682,10 @@ oyCrosswordMenu.prototype.checkAll = function()
 				this.showAnswer(this.clues[i], 1);	
 				
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
-<<<<<<< HEAD
+
 				temp_score = this.getScoreForMatch(this.clues[i]);
 
-=======
+
 			//	alert("Score: "+this.score);
 				temp_WordLength = this.getScoreForMatch(this.clues[i]);
 				
@@ -696,7 +695,7 @@ oyCrosswordMenu.prototype.checkAll = function()
 			//temp_score = this.getScoreForMatch(this.clues[i]);
 		//	alert("Temp_Score: "+temp_score);
 				
->>>>>>> temp
+
 				this.clues[i].matched = true;
 				this.clues[i].revealed = false;	
 				
@@ -742,10 +741,10 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 			this.showAnswer(clue, 1);	 	
 			
 			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
-<<<<<<< HEAD
+
 			temp_score = this.getScoreForMatch(clue);
 
-=======
+
 		//	alert(this.score);
 			
 			temp_WordLength = this.getScoreForMatch(clue);
@@ -755,7 +754,7 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 		//	this.temp_score = this.getScoreForMatch(clue);
 		//	alert(temp_score);
 			
->>>>>>> temp
+
 			clue.revealed = false; 	
 			clue.matched = true; 	
 			
@@ -864,10 +863,9 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				console.log(temp_score);*/
 				//alert(temp_score);
 
-=======
+
 			//	var value = $(".banglaMeaning").val();				
 		
->>>>>>> temp
 				cancel();
 
 							
@@ -893,7 +891,6 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 function submitBanglaMeaning()
 {
 	
-<<<<<<< HEAD
 		var value = $(".banglaMeaning").val();
 		//alert(value);
 
@@ -929,7 +926,6 @@ function submitBanglaMeaning()
 	}); */
 }
 
-=======
 	var value = $(".banglaMeaning").val();
 	//alert(selectedWord);
 	
@@ -980,7 +976,6 @@ function getClueObject(clueObject)
 	//alert( arr[cnt++].wordid);
 	
 }
->>>>>>> temp
 
 oyCrosswordMenu.prototype.addNoneWordAction_BanglaMeaning = function(target, caption){
 	var elem = document.createElement("SPAN");
