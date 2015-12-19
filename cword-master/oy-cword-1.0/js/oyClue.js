@@ -37,6 +37,7 @@ function oyCrosswordClue(
 	ypos		// zero-based coordinate of the word on Y axis, zero at t he top, i.e. for the word "Abstract" this will be 6
 ){
 	this.wordid = wordid;
+	this.synsetid = synsetid;
 	this.len = len;
 	this.clue = clue;
 	this.answer = answer;
@@ -50,6 +51,8 @@ function oyCrosswordClue(
 	
 	this.revealed_BanglaMeaning = false;
 	this.matched_BanglaMeaning = false;
+	
+	this.objPass = getClueObject(this);
 }
 
 oyCrosswordClue.prototype.completed = function(){

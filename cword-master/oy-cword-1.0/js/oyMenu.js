@@ -25,7 +25,10 @@
 // Actions menu
 //
 
-var temp_score;
+var temp_score=0;
+var temp_WordLength=0;
+var arr = [];
+var selectedWord;
 
 function oyCrosswordMenu(puzz){
 	this.puzz = puzz;
@@ -654,28 +657,53 @@ oyCrosswordMenu.prototype.revealWord = function(clue){
 }  
 
 //reviewed
+<<<<<<< HEAD
 oyCrosswordMenu.prototype.checkAll = function(){
 	
+=======
+oyCrosswordMenu.prototype.checkAll = function()
+{	
+>>>>>>> temp
 	var checked = 0;
 	var correct = 0;
 	for (var i=0; i < this.clues.length; i++){
 		if (this.clues[i].completed()) continue;
 		 
-		var status = this.checkWordStatus(this.clues[i]);	  
+		var status = this.checkWordStatus(this.clues[i]);	
+		var statusNew = this.checkWordStatus(this.clues[i]);	  
+		
 		if (status.isComplete){
+			
+			selectedWord = statusNew.buf; // Save the answer in "selectedWord" variable which is currently given to check.
+			
 			checked++;
 			this.checks++; 
 			this.deducts += this.getDeductionForCheck(this.clues[i]);			
 			if (status.wrong == 0){				 
-				this.showAnswer(this.clues[i], 1);	 	
+				this.showAnswer(this.clues[i], 1);	
+				
 				this.score += this.getScoreForMatch(this.clues[i]); //--------------------------------------------------- User score calculation---------------------------------------
+<<<<<<< HEAD
 				temp_score = this.getScoreForMatch(this.clues[i]);
 
+=======
+			//	alert("Score: "+this.score);
+				temp_WordLength = this.getScoreForMatch(this.clues[i]);
+				
+				
+				temp_score = this.score;
+			
+			//temp_score = this.getScoreForMatch(this.clues[i]);
+		//	alert("Temp_Score: "+temp_score);
+				
+>>>>>>> temp
 				this.clues[i].matched = true;
 				this.clues[i].revealed = false;	
 				
 				this.clues[i].matched_BanglaMeaning = false;
 				this.clues[i].revealed_BanglaMeaning = true;
+				
+				selectedWord = statusNew.buf;
 				
 				correct++; 
 				this.matches++;
@@ -685,7 +713,11 @@ oyCrosswordMenu.prototype.checkAll = function(){
 		
 	if  (checked == 0){
 		this.footer.stateError("No complete words found!");
-	} else {
+	}
+	
+	else 
+	{
+		
 		this.footer.stateOk("Checked " + checked + ", " + correct + " matched!"); 
 	}
 }  
@@ -695,25 +727,58 @@ oyCrosswordMenu.prototype.checkWord = function(clue){
 	var status = this.checkWordStatus(clue);	  
 	if (!status.isComplete){
 		this.footer.stateError("The word [" + status.buf + "] is incomplete!");
-	} else { 
+	} 
+	else 
+	{ 
 		this.checks++; 
 		this.deducts += this.getDeductionForCheck(clue);			
-		if (status.wrong != 0){		  
+		if (status.wrong != 0)
+		{		  
 			this.footer.stateError("[" + status.buf + "] didn't match!");
-		} else { 
+		} 
+		else 
+		{ 
 			this.matches++;  // Number of word matches by user
 			this.showAnswer(clue, 1);	 	
+			
 			this.score += this.getScoreForMatch(clue); //-------------------------------------- User score calculation---------------------------------------
+<<<<<<< HEAD
 			temp_score = this.getScoreForMatch(clue);
 
+=======
+		//	alert(this.score);
+			
+			temp_WordLength = this.getScoreForMatch(clue);
+			
+			temp_score = this.score;
+			
+		//	this.temp_score = this.getScoreForMatch(clue);
+		//	alert(temp_score);
+			
+>>>>>>> temp
 			clue.revealed = false; 	
 			clue.matched = true; 	
 			
 			clue.matched_BanglaMeaning = false;
 			clue.revealed_BanglaMeaning = true;
 			
+			selectedWord = status.buf; // Save the answer in "selectedWord" variable which is currently given to check.
+			
 			this.footer.stateOk("[" + status.buf + "] matched!");
 		}
+	}
+}
+
+
+//return object of a specific clue to get details of that object(Ex: wordid,synsetid etc..)
+function getAnswerObject (clue)
+{
+	//alert("1");
+	for(var i=0;i<arr.length;i++)
+	{
+		//alert(arr[i].answer);
+		if(arr[i].answer == clue.toLowerCase())
+			return arr[i];
 	}
 }
 
@@ -788,6 +853,7 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				});				
 				
 				$('textarea, input[type=text]').avro();
+<<<<<<< HEAD
 				var value = $(".banglaMeaning").val();
 				
 /*				if(value != null)
@@ -798,6 +864,10 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 				console.log(temp_score);*/
 				//alert(temp_score);
 
+=======
+			//	var value = $(".banglaMeaning").val();				
+		
+>>>>>>> temp
 				cancel();
 
 							
@@ -823,6 +893,7 @@ oyCrosswordMenu.prototype.addAction2 = function(target, caption, hint, track, la
 function submitBanglaMeaning()
 {
 	
+<<<<<<< HEAD
 		var value = $(".banglaMeaning").val();
 		//alert(value);
 
@@ -858,6 +929,58 @@ function submitBanglaMeaning()
 	}); */
 }
 
+=======
+	var value = $(".banglaMeaning").val();
+	//alert(selectedWord);
+	
+	var clueObject = getAnswerObject(selectedWord);
+	
+	//alert(clueObject.answer + " " + selectedWord);
+	var meaning = $("#bm").val();
+	$.ajax({
+
+			type: 'POST',
+			url: './oy-cword-1.0/js/process.php',	
+				
+			data: {
+					banglaWord:meaning,
+					wordId:clueObject.wordid,
+					synsetId:clueObject.synsetid
+				},
+				
+			success: function(response){
+			$('#result').html(response);
+			}
+		});
+		
+	//	totalScore = getTotalScore();
+		
+		if(meaning != null)
+			temp_score += temp_WordLength;
+			
+			$('#hiddenField').val(temp_score);
+		//update2(temp_score);
+				
+		
+	//	alert("Score_OK: "+ temp_score);
+		alert(meaning);
+		
+	//	alert("Temp Score_OK: "+temp_score);
+		//alert(temp_score);
+			
+}
+
+var cnt=0;
+
+// Save every words (which creates the grid) object(to get details of a particular word like wordid,synsetid etc.) in a array
+function getClueObject(clueObject)
+{
+	//alert(clueObject.answer);
+	this.arr.push(clueObject);
+	//alert( arr[cnt++].wordid);
+	
+}
+>>>>>>> temp
 
 oyCrosswordMenu.prototype.addNoneWordAction_BanglaMeaning = function(target, caption){
 	var elem = document.createElement("SPAN");
